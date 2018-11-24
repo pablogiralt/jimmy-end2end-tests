@@ -1,24 +1,31 @@
-describe('My site', function() {
-    describe('homepage', function() {
-        it('loads successfully', function() {
-            cy.visit('/es')
-            cy.contains('Jimmy Lion')
+describe('Jimmy Spain', function() {
+    it('loads checkout successfully', function() {
+
+        var sites = ['/es', '/eu', '/uk', '/us', '/mx'];
+
+        sites.forEach(function(element) {
             
-            //cy.wait(3000)
-            //cy.get('#esns_box_close').click()
-            //cy.visit('/es/calcetines-hombre')
-            //cy.get('.products-grid .item.simple').click()
-        })
-        it('has a dropdown cart that opens and is initially empty', function() {
-            //cy.visit('/')
-            cy.get('.top-link-cart').click()
-            cy.get('#ajaxcart .empty').should('contain', 'No tiene artículos en su carrito de compras.')
-        })
-    })
-    describe('mens socks category', function() {
-        it('loads successfully', function() {
-          cy.visit('/es/calcetines-hombre')
-          cy.get('h1').should('contain', 'CALCETINES HOMBRE')
-        })
+            cy.log('starting test for site: ' + element);
+
+            cy.visit(element)
+
+            cy
+                .get('.navbar-main > .navbar-nav > li:first-child > a').click();
+                
+            cy
+                .get('.products-grid .item.simple .select-size.has-stock')
+                .eq(0).click()
+                .closest('.actions')
+                .find('.add-to-cart')
+                .click({ force: true })
+
+            cy
+                .get('#ajaxcart .ajcheckout').click();    
+
+            cy
+                .get('.opc-col-left > h3')
+                .should('have.length', 1)
+
+        });
     })
 })
