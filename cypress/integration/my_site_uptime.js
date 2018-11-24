@@ -1,7 +1,7 @@
 describe('Jimmy Spain', function() {
     it('loads checkout successfully', function() {
 
-        var sites = ['/es', '/eu', '/uk', '/us', '/mx'];
+        var sites = ['/es/calcetines-hombre', '/eu/men-socks', '/uk/men-socks', '/us/men-socks', '/mx/calcetines-hombre'];
 
         sites.forEach(function(element) {
             
@@ -9,8 +9,7 @@ describe('Jimmy Spain', function() {
 
             cy.visit(element)
 
-            cy
-                .get('.navbar-main > .navbar-nav > li:first-child > a').click();
+            // cy.get('.navbar-main > .navbar-nav > li:first-child > a').click();
                 
             cy
                 .get('.products-grid .item.simple .select-size.has-stock')
