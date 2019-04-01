@@ -1,4 +1,18 @@
 describe('Jimmy Spain', function() {
+
+    Cypress.on('fail', (error, runnable) => {
+        debugger
+        
+        // When tests do not pass we empty magento cache
+        fetch('https://jimmylion.com/clean-cache-ifttt-wug8V9bvwEHRKZhz.php');
+
+        // we now have access to the err instance
+        // and the mocha runnable this failed on
+      
+        throw error // throw error to have test still fail
+    })
+
+
     it('loads checkout successfully', function() {
 
         var sites = [
@@ -13,7 +27,7 @@ describe('Jimmy Spain', function() {
         ];
 
         sites.forEach(function(element) {
-            
+
             cy.log('starting test for site: ' + element);
 
             cy.visit(element)
